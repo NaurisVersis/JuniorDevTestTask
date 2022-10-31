@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {"JuniorDevTestTask\\": "src/"}
+    },
+    "require": {
+        "league/route": "^5.1",
+        "laminas/laminas-diactoros": "^2.20",
+        "laminas/laminas-httphandlerrunner": "^2.4"
+    }
+}
