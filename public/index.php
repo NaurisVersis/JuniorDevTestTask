@@ -1,5 +1,8 @@
 <?php
-include __DIR__ . '/vendor/autoload.php';
+include __DIR__ . '/../app/bootstrap.php';
+include __DIR__ . '/../app/routing.php';
+
+echo "Hello World";
 
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
     $_SERVER,
@@ -16,8 +19,9 @@ $container->delegate(
 
 $strategy = (new League\Route\Strategy\ApplicationStrategy)->setContainer($container);
 $router = (new League\Route\Router())->setStrategy($strategy);
-include __DIR__. '/app/routing.php';
+
 
 $response = $router->dispatch($request);
 
 (new Laminas\HttpHandlerRunner\Emitter\SapiEmitter)->emit($response);
+

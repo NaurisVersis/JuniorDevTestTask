@@ -9,6 +9,7 @@
         "laminas/laminas-httphandlerrunner": "^2.4",
         "league/container": "^4.2",
         "vlucas/phpdotenv": "^5.5",
-        "doctrine/orm": "^2.13"
+        "doctrine/orm": "^2.13",
+        "symfony/cache": "^6.1"
     }
 }
