@@ -1,0 +1,4 @@
+{% for attribute in attributes %}
+    <label for="{{ attribute.lowercaseName }}">{{ attribute.name }}</label><br>
+    <label for="#{{ attribute.lowercaseName }}"></label><input type="text" id="#{{ attribute.lowercaseName }}" name="{{ attribute.lowercaseName }}" required><br><br>
+{% endfor %}
