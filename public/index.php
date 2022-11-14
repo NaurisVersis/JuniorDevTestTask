@@ -2,7 +2,7 @@
 include __DIR__ . '/../app/bootstrap.php';
 include __DIR__ . '/../app/routing.php';
 
-echo "Hello World";
+//echo "Hello World";
 
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
     $_SERVER,
@@ -12,13 +12,11 @@ $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
     $_FILES,
 );
 
-$container = new League\Container\Container();
-$container->delegate(
-    new League\Container\ReflectionContainer(),
-);
+//$container = new League\Container\Container();
 
-$strategy = (new League\Route\Strategy\ApplicationStrategy)->setContainer($container);
-$router = (new League\Route\Router())->setStrategy($strategy);
+//
+//$strategy = (new League\Route\Strategy\ApplicationStrategy)->setContainer($container);
+//$router = (new League\Route\Router())->setStrategy($strategy);
 
 
 $response = $router->dispatch($request);

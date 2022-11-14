@@ -10,6 +10,7 @@
         "league/container": "^4.2",
         "vlucas/phpdotenv": "^5.5",
         "doctrine/orm": "^2.13",
-        "symfony/cache": "^6.1"
+        "symfony/cache": "^6.1",
+        "twig/twig": "^3.4"
     }
 }

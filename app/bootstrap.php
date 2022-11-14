@@ -1,5 +1,5 @@
 <?php
-// include the Composer autoloader
+
 include __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ .'/..');
@@ -15,7 +15,6 @@ $config = Doctrine\ORM\ORMSetup::createAttributeMetadataConfiguration(
     $cache,
 );
 
-// database configuration parameters
 $conn = [
     'dbname' => $_ENV['DB_NAME'],
     'user' => $_ENV['DB_USER'],
@@ -24,13 +23,22 @@ $conn = [
     'driver' => $_ENV['DB_DRIVER'],
 ];
 
-// obtaining the entity manager
 $entityManager = Doctrine\ORM\EntityManager::create($conn, $config);
 
 $container = new League\Container\Container();
-// Adding entity manager to container
+$container->delegate(
+    new League\Container\ReflectionContainer(),
+);
+
 $container->add(Doctrine\ORM\EntityManager::class, $entityManager);
 
+$loader = new Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
+$twig = new Twig\Environment($loader);
+
+// Adding entity manager to container
+$container->add(Doctrine\ORM\EntityManager::class, $entityManager);
+// Add twig to container
+$container->add(Twig\Environment::class, $twig);
 
 $strategy = (new League\Route\Strategy\ApplicationStrategy())->setContainer($container);
 $router = (new League\Route\Router())->setStrategy($strategy);
