@@ -16,7 +16,7 @@ class Category
     #[ORM\GeneratedValue]
     private $id = null;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     private string $name;
 
     /**
@@ -41,17 +41,15 @@ class Category
     }
 
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
     public function getName(): string
     {
         return $this->name;
     }
 
-
-    public function setName(string $name): Category
-    {
-        $this->name = $name;
-        return $this;
-    }
     public function addAttribute(Attribute $attribute): void
     {
         $this->attributes[] = $attribute;

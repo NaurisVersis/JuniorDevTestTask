@@ -59,6 +59,9 @@ class Attribute
         $this->category = $category;
 
     }
-
+    public function getLowercaseName(): string
+    {
+        return strtolower($this->name);
+    }
 
 }

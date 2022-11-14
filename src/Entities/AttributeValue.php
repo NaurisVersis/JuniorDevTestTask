@@ -25,7 +25,7 @@ class AttributeValue
     #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
     private Product |null $product;
 
-    public function __construct(Attribute $attribute, string $value)
+    public function __construct( string $value, Attribute $attribute,)
     {
         $this->attribute = $attribute;
         $this->value = $value;
