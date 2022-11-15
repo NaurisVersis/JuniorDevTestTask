@@ -2,35 +2,64 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#mass-delete').click(function () {
+                let container = $(".delete-checkbox:checked").parent();
+                let ids = container.map(function () {
+                    return $(this).data("id");
+                }).get();
 
+                $.ajax({
+                    url: '/delete-products',
+                    type: 'POST',
+                    data: {
+                        'product_ids': ids,
+                    },
+                    success: function (data) {
+                        container.remove();
+                    },
+                    error: function (jqXHR) {
+                    }
+                });
+            });
+        });
+    </script>
+<title>Scandiweb Junior Developer Test Task </title>
 </head>
 
 <body class="container">
-<div class="row m-3">
+<div class="row m-3 border-bottom border-2 pb-3">
     <h1 class="col">Products</h1>
-    <a href="/add-product" type="button" class="btn btn-success col me-3">Add Product</a>
-    <button type="button" class="btn btn-danger col">MASS DELETE</button>
+    <a href="/add-product"  class="btn btn-success col-2 me-3">ADD</a>
+    <a href="#" id="mass-delete" class="btn btn-danger col">MASS DELETE</a>
+
 
 </div>
 
 
             <ul>
-                <div class="row">
+                <div class="row ">
 
                         {% for product in products %}
-                            <li class="col-2 card m-3  pt-3">
-                                <div class="row">
-                                    <h5 class="card-title col mb-3">{{ product.sku|e }}</h5>
-                                    <input class=" col form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for deleting product">
+                            <li data-id="{{ product.id}}" class="col-2 card m-3  pt-3">
+                                <input class=" col-6 form-check-input mt-0 me-2 delete-checkbox" type="checkbox">
+<div class="container">
+    <h5 class="card-title col m-3">{{ product.sku|e }}</h5>
+
+
+    <h6>{{ product.name|e }}</h6>
+    <p>Price: {{ product.price|e }} </p>
+    <p>Category: {{ product.category.name|e }}</p>
+</div>
+
+                                <div class="container">
+                                    <p>Description:</p>
+                                    {% for attributeValue in product.attributeValues %}
+                                        <p>{{ attributeValue.attribute.name|e }}: {{ attributeValue.value|e }} {{ attributeValue.attribute.unit|e }}</p>
+                                    {% endfor %}
                                 </div>
 
-                                <h6>{{ product.name|e }}</h6>
-                                <p>Price: {{ product.price|e }} </p>
-                                <p>Category: {{ product.category.name|e }}</p>
-                                <p>Description:</p>
-                                {% for attributeValue in product.attributeValues %}
-                                    <p>{{ attributeValue.attribute.name|e }}: {{ attributeValue.value|e }} {{ attributeValue.attribute.unit|e }}</p>
-                                {% endfor %}
 
                             </li>
 

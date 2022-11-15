@@ -38,11 +38,6 @@ class CreateProductController
             ->getRepository(Product::class)
             ->findOneBy(['sku' =>$body['sku']]);
 
-        if ($product !== null){
-
-           return  new RedirectResponse('/add-product');
-
-        } else{
 
             $product = new Product($body['sku'], $body['name'], $body['price']);
             $category->addProduct($product);
@@ -56,7 +51,7 @@ class CreateProductController
             $this->entityManager->persist($product);
             $this->entityManager->flush();
             return new RedirectResponse('/');
-        }
+
 
 
 

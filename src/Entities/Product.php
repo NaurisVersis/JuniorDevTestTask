@@ -47,6 +47,10 @@ class Product
         $this->price = $price;
         $this->attributeValues = new ArrayCollection();
     }
+    public function getId(): int
+    {
+        return $this->id;
+    }
         public function getSku(): string
     {
         return $this->sku;
