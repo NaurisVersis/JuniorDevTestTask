@@ -43,7 +43,9 @@ class CreateProductController
             $category->addProduct($product);
 
             foreach ($category->getAttributes() as $attribute) {
-                $attributeValue = new AttributeValue($body[$attribute->getLowercaseName()], $attribute);
+                $intValue = (int)$body[$attribute->getLowercaseName()];
+                $attributeValue = new AttributeValue($intValue, $attribute);
+
                 $product->addAttributeValue($attributeValue);
                 $this->entityManager->persist($attributeValue);
             }

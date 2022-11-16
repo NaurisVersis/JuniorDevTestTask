@@ -18,14 +18,14 @@ class AttributeValue
     #[ORM\JoinColumn(name: 'attribute_id', referencedColumnName: 'id')]
     private Attribute $attribute;
 
-    #[ORM\Column(type: 'string')]
-    private string $value;
+    #[ORM\Column(type: 'integer')]
+    private int $value;
 
     #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'attributeValues')]
     #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
     private Product |null $product;
 
-    public function __construct( string $value, Attribute $attribute,)
+    public function __construct( int $value, Attribute $attribute,)
     {
         $this->attribute = $attribute;
         $this->value = $value;
@@ -35,12 +35,12 @@ class AttributeValue
     {
         $this->product = $product;
     }
-    public function setValue(string $value): AttributeValue
+    public function setValue(int $value): AttributeValue
     {
         $this->value = $value;
         return $this;
     }
-    public function getValue(): string
+    public function getValue(): int
     {
         return $this->value;
     }

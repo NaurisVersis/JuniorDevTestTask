@@ -1,9 +1,10 @@
 {% for attribute in attributes %}
     <div class="container mt-3">
-        <label for="{{ attribute.lowercaseName }}">Please, provide {{ attribute.lowercaseName }} in {{ attribute.unit }}</label>
+        <label for="{{ attribute.lowercaseName }}" class="form-label">Please, provide {{ attribute.lowercaseName }} in {{ attribute.unit }}</label>
         <label for="#{{ attribute.lowercaseName }}"></label>
         <input type="number" min="0" step="0.01" id="#{{ attribute.lowercaseName }}" name="{{ attribute.lowercaseName }}" required>
 
     </div>
 
 {% endfor %}
+<small id="description" class="form-text text-muted">Product description.</small>
