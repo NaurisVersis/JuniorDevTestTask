@@ -32,57 +32,55 @@
     });
 </script>
 
+<body class="container">
 
-<div class="container m-3 ">
-    <div class="row border-bottom border-2 mb-3 pb-3">
+    <div class="header row mt-5 border-bottom border-2 p-3 align-middle">
         <h1 class="col">Add product</h1>
-        <button type="submit" form="product-form"  value="Save" class=" btn btn-success col-2 me-3" >Save</button>
-        <a href="/" class="btn btn-danger col">Cancel</a>
+        <button type="submit" form="product-form"  value="Save" class=" btn btn-success col-2 me-3 " >SAVE</button>
+        <a href="/" class="btn btn-danger col me-3 align-middle" role="button">CANCEL</a>
+
+
 
     </div>
+<div class="container  mt-3 py-5">
+    <div class="card ms-0 mt-3 w-50 align-items-start">
+        <form action="/create-product" method="post" id="product-form" class="row ps-3"  >
+            <div class="col mb-3 p-3">
+                <label for="sku" class="form-label p-1">SKU</label>
+                <input type="text" id="sku" name="sku" class="form-control"  required>
+                <div class="invalid-feedback">
+                    Please add SKU.
+                </div>
 
-<div class="container">
-    <form action="/create-product" method="post" id="product-form" class="row border"  >
-       <div class="col-3">
-           <label for="sku" class="form-label">SKU</label><br>
-           <input type="text" id="sku" name="sku"  required><br>
-           <div class="invalid-feedback">
-               Please add SKU.
-           </div><br>
+                <label for="name" class="form-label p-1">Name</label>
+                <input type="text" id="name" name="name" class="form-control"  required>
+                <div class="invalid-feedback">
+                    Please add SKU.
+                </div>
 
-           <label for="name" class="form-label">Name</label><br>
-           <input type="text" id="name" name="name"  required><br>
-           <div class="invalid-feedback">
-               Please add SKU.
-           </div><br>
+                <label for="price" class="form-label p-1">Price ($)</label>
+                <input type="number" min="0" step="0.01" id="price" name="price"  class="form-control" required>
+                <div class="invalid-feedback">
+                    Please add SKU.
+                </div>
+            </div>
+            <div class="col mb-3 p-3">
+                <label for="productType" class="form-label pb-1">Type: </label>
+                <select name="productType" id="productType"  class="form-select" required>
+                    <option value="" selected>Please select product type</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
 
-           <label for="price" class="form-label">Price ($)</label><br>
-           <input type="number" min="0" step="0.01" id="price" name="price"  required><br>
-           <div class="invalid-feedback">
-               Please add SKU.
-           </div><br>
-       </div>
-        <div class="col-4">
-            <label for="productType" class="form-label">Type: </label>
-            <select name="productType" id="productType"  required>
-                <option value="" selected>Please select product type</option>
-                {% for category in categories %}
-                    <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
-
-            <div id="attributes"></div>
-
-        </div>
-
-
-
-
-    </form>
-
+                <div id="attributes" class="container"></div>
+            </div>
+        </form>
+    </div>
 </div>
 
+    <footer class="footer border-top border-2">
+        <p class="text-center py-3">Scandiweb test assignment</p>
+    </footer>
+</body>
 
-
-
-</div>

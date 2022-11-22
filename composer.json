@@ -2,16 +2,21 @@
     "autoload": {
         "psr-4": {"JuniorDevTestTask\\": "src/"}
     },
+    "authors": [
+        {
+            "name": "NaurisVersis",
+            "email": "nauris.versis@gmail.com"
+        }
+    ],
     "require": {
         "php": "^8.1",
         "league/route": "^5.1",
         "laminas/laminas-diactoros": "^2.20",
         "laminas/laminas-httphandlerrunner": "^2.4",
         "league/container": "^4.2",
-        "vlucas/phpdotenv": "^5.5",
         "doctrine/orm": "^2.13",
         "symfony/cache": "^6.1",
+        "vlucas/phpdotenv": "^5.5",
         "twig/twig": "^3.4"
-
     }
 }
