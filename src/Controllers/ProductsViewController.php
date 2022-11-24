@@ -1,6 +1,6 @@
 <?php
 
-namespace JuniorDevTestTask\Views;
+namespace JuniorDevTestTask\Controllers;
 
 use Doctrine\ORM\EntityManager;
 use JuniorDevTestTask\Entities\Product;
@@ -9,11 +9,11 @@ use Psr\Http\Message\ResponseInterface;
 use Twig\Environment;
 
 
-class ProductsView
+class ProductsViewController
 {
 
     private EntityManager $entityManager;
-    private  Environment $twig;
+    private Environment $twig;
 
     public function __construct(EntityManager $entityManager, Environment $twig)
     {

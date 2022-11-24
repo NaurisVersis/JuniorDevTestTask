@@ -23,9 +23,9 @@ class AttributeValue
 
     #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'attributeValues')]
     #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
-    private Product |null $product;
+    private Product|null $product;
 
-    public function __construct( int $value, Attribute $attribute,)
+    public function __construct(int $value, Attribute $attribute,)
     {
         $this->attribute = $attribute;
         $this->value = $value;
@@ -35,14 +35,16 @@ class AttributeValue
     {
         $this->product = $product;
     }
+
+    public function getValue(): int
+    {
+        return $this->value;
+    }
+
     public function setValue(int $value): AttributeValue
     {
         $this->value = $value;
         return $this;
-    }
-    public function getValue(): int
-    {
-        return $this->value;
     }
 
     public function getAttribute(): Attribute

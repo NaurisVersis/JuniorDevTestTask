@@ -32,7 +32,7 @@ class AddProductAttributesFormController
             $this->twig->render(
                 'add-product-attributes.html.twig',
                 [
-                    'attributes' => $category->getAttributes(),
+                    'category' => $category,
                 ]
             )
         );

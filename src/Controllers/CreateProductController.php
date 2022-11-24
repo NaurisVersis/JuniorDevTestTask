@@ -36,29 +36,22 @@ class CreateProductController
         $product = $this
             ->entityManager
             ->getRepository(Product::class)
-            ->findOneBy(['sku' =>$body['sku']]);
+            ->findOneBy(['sku' => $body['sku']]);
 
 
-            $product = new Product($body['sku'], $body['name'], $body['price']);
-            $category->addProduct($product);
+        $product = new Product($body['sku'], $body['name'], $body['price']);
+        $category->addProduct($product);
 
-            foreach ($category->getAttributes() as $attribute) {
-                $intValue = (int)$body[$attribute->getLowercaseName()];
-                $attributeValue = new AttributeValue($intValue, $attribute);
+        foreach ($category->getAttributes() as $attribute) {
+            $intValue = (int)$body[$attribute->getLowercaseName()];
+            $attributeValue = new AttributeValue($intValue, $attribute);
 
-                $product->addAttributeValue($attributeValue);
-                $this->entityManager->persist($attributeValue);
-            }
+            $product->addAttributeValue($attributeValue);
+            $this->entityManager->persist($attributeValue);
+        }
 
-            $this->entityManager->persist($product);
-            $this->entityManager->flush();
-            return new RedirectResponse('/');
-
-
-
-
-
-
-
+        $this->entityManager->persist($product);
+        $this->entityManager->flush();
+        return new RedirectResponse('/');
     }
 }

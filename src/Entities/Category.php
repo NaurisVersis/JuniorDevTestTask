@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'categories')]
-
 class Category
 {
     #[ORM\Id]
@@ -18,6 +17,10 @@ class Category
 
     #[ORM\Column]
     private string $name;
+
+    #[ORM\Column]
+    private string $hint;
+
 
     /**
      * @var Collection<Product>
@@ -45,9 +48,15 @@ class Category
     {
         return $this->id;
     }
+
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getHint(): string
+    {
+        return $this->hint;
     }
 
     public function addAttribute(Attribute $attribute): void
@@ -56,6 +65,7 @@ class Category
 
         $attribute->setCategory($this);
     }
+
     /**
      * @return Collection<Attribute>
      */
@@ -70,4 +80,7 @@ class Category
 
         $product->setCategory($this);
     }
+
+
+
 }

@@ -27,8 +27,8 @@ class Product
     private string $price;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
-    #[ORM\JoinColumn(name:'category_id', referencedColumnName: 'id')]
-    private Category |null $category;
+    #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'id')]
+    private Category|null $category;
 
     /**
      * @var Collection<AttributeValue>
@@ -47,14 +47,17 @@ class Product
         $this->price = $price;
         $this->attributeValues = new ArrayCollection();
     }
+
     public function getId(): int
     {
         return $this->id;
     }
-        public function getSku(): string
+
+    public function getSku(): string
     {
         return $this->sku;
     }
+
     public function setSku(string $sku): Product
     {
         $this->sku = $sku;
@@ -84,13 +87,15 @@ class Product
         $this->price = $price;
         return $this;
     }
-        public function setCategory(Category $category): void
-    {
-        $this->category = $category;
-    }
-        public function getCategory(): Category
+
+    public function getCategory(): Category
     {
         return $this->category;
+    }
+
+    public function setCategory(Category $category): void
+    {
+        $this->category = $category;
     }
 
     public function addAttributeValue(AttributeValue $attributeValue): void
@@ -99,6 +104,7 @@ class Product
 
         $attributeValue->setProduct($this);
     }
+
     /**
      * @return Collection<AttributeValue>
      */
@@ -107,4 +113,4 @@ class Product
         return $this->attributeValues;
     }
 
-    }
+}

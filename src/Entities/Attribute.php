@@ -57,8 +57,8 @@ class Attribute
     public function setCategory(Category $category): void
     {
         $this->category = $category;
-
     }
+
     public function getLowercaseName(): string
     {
         return strtolower($this->name);

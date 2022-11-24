@@ -11,6 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 class DeleteProductsController
 {
     private EntityManager $entityManager;
+
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
