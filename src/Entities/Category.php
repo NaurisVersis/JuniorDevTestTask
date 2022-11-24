@@ -58,6 +58,11 @@ class Category
     {
         return $this->hint;
     }
+    public function setHint(string $hint): Category
+    {
+        $this->hint = $hint;
+        return $this;
+    }
 
     public function addAttribute(Attribute $attribute): void
     {
