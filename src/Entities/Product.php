@@ -3,21 +3,27 @@
 namespace JuniorDevTestTask\Entities;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 
 
 #[ORM\Entity]
 #[ORM\Table(name: 'products')]
-class Product
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap(['book' => Book::class, 'dvd' => Dvd::class, 'furniture' => Furniture::class])]
+abstract class Product
 {
-    #[ORM\Id]
-    #[ORM\Column(type: "integer")]
-    #[ORM\GeneratedValue]
-    private $id = null;
+    protected string $type;
 
-    #[ORM\Column(type: 'string')]
+    protected string $unit;
+
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
+    private int $id;
+
+    #[ORM\Column(type: 'string', unique: true)]
     private string $sku;
 
     #[ORM\Column(type: 'string')]
@@ -25,17 +31,6 @@ class Product
 
     #[ORM\Column(type: 'string')]
     private string $price;
-
-    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
-    #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'id')]
-    private Category|null $category;
-
-    /**
-     * @var Collection<AttributeValue>
-     */
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: AttributeValue::class)]
-    private Collection $attributeValues;
-
 
     public function __construct(
         string $sku,
@@ -45,8 +40,9 @@ class Product
         $this->sku = $sku;
         $this->name = $name;
         $this->price = $price;
-        $this->attributeValues = new ArrayCollection();
     }
+
+    abstract public function getAttributes(): array;
 
     public function getId(): int
     {
@@ -58,22 +54,9 @@ class Product
         return $this->sku;
     }
 
-    public function setSku(string $sku): Product
-    {
-        $this->sku = $sku;
-        return $this;
-    }
-
     public function getName(): string
     {
         return $this->name;
-    }
-
-
-    public function setName(string $name): Product
-    {
-        $this->name = $name;
-        return $this;
     }
 
     public function getPrice(): string
@@ -81,36 +64,8 @@ class Product
         return $this->price;
     }
 
-
-    public function setPrice(string $price): Product
+    public function getType(): string
     {
-        $this->price = $price;
-        return $this;
+        return $this->type;
     }
-
-    public function getCategory(): Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(Category $category): void
-    {
-        $this->category = $category;
-    }
-
-    public function addAttributeValue(AttributeValue $attributeValue): void
-    {
-        $this->attributeValues[] = $attributeValue;
-
-        $attributeValue->setProduct($this);
-    }
-
-    /**
-     * @return Collection<AttributeValue>
-     */
-    public function getAttributeValues(): Collection
-    {
-        return $this->attributeValues;
-    }
-
 }

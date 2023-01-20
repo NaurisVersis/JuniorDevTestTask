@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace JuniorDevTestTask\Controllers;
 
 use Doctrine\ORM\EntityManager;
-use JuniorDevTestTask\Entities\AttributeValue;
-use JuniorDevTestTask\Entities\Category;
-use JuniorDevTestTask\Entities\Product;
+use JuniorDevTestTask\Entities\{Book, Dvd, Furniture, Product};
+use Laminas\Diactoros\Response\EmptyResponse;
+use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
+use Laminas\Diactoros\Response\TextResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -26,29 +27,33 @@ class CreateProductController
     {
         $body = $request->getParsedBody();
 
-        /** @var Category $category */
-        $category = $this
-            ->entityManager
-            ->getRepository(Category::class)
-            ->findOneBy(['id' => $body['productType']]);
-
-        /** @var Product $product */
         $product = $this
             ->entityManager
             ->getRepository(Product::class)
             ->findOneBy(['sku' => $body['sku']]);
 
+        if ($product !== null) {
 
-        $product = new Product($body['sku'], $body['name'], $body['price']);
-        $category->addProduct($product);
-
-        foreach ($category->getAttributes() as $attribute) {
-            $intValue = (int)$body[$attribute->getLowercaseName()];
-            $attributeValue = new AttributeValue($intValue, $attribute);
-
-            $product->addAttributeValue($attributeValue);
-            $this->entityManager->persist($attributeValue);
+            return new EmptyResponse;
         }
+
+        switch ($body['product_type']) {
+            case 'book':
+                $product = new Book($body['sku'], $body['name'], $body['price']);
+                $product->setWeight(intval($body['weight']));
+                break;
+            case 'dvd':
+                $product = new Dvd($body['sku'], $body['name'], $body['price']);
+                $product->setSize(intval($body['size']));
+                break;
+            case 'furniture':
+                $product = new Furniture($body['sku'], $body['name'], $body['price']);
+                $product->setHeight(intval($body['height']));
+                $product->setLength(intval($body['length']));
+                $product->setWidth(intval($body['width']));
+                break;
+        }
+
 
         $this->entityManager->persist($product);
         $this->entityManager->flush();

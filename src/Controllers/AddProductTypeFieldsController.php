@@ -4,10 +4,10 @@ namespace JuniorDevTestTask\Controllers;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Twig\Environment;
 
-
-class AddProductFormController
+class AddProductTypeFieldsController
 {
     private Environment $twig;
 
@@ -16,13 +16,14 @@ class AddProductFormController
         $this->twig = $twig;
     }
 
-    public function __invoke(): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-
-
         return new HtmlResponse(
             $this->twig->render(
-                'add-product.html.twig',
+                'add-product-type-fields.html.twig',
+                [
+                    'type' => $args['type'],
+                ]
             )
         );
     }

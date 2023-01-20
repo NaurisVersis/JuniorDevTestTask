@@ -22,9 +22,8 @@
 
                 <div class="container">
                     <h6>Description:</h6>
-                    {% for attributeValue in product.attributeValues %}
-                        <p>{{ attributeValue.attribute.name|e }}
-                            : {{ attributeValue.value|e }} {{ attributeValue.attribute.unit|e }}</p>
+                    {% for attributeName, attributeValue in product.attributes %}
+                        <p>{{ attributeName|capitalize|e }}: {{ attributeValue|e }} {{ product.unit}}</p>
                     {% endfor %}
                 </div>
             </li>

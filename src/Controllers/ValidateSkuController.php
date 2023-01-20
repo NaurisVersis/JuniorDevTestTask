@@ -26,7 +26,7 @@ class ValidateSkuController
         if (!isset($query['sku'])) {
             return new JsonResponse(
                 [
-                    'error' => 'You should pass "sku" parameter.'
+                    'error' => sprintf('You should pass "sku" parameter.')
                 ],
                 400
             );
@@ -38,7 +38,9 @@ class ValidateSkuController
             ->getRepository(Product::class)
             ->findOneBy(['sku' => $query['sku']]);
 
+
         if ($product !== null) {
+
             return new JsonResponse(
                 [
                     'error' => sprintf('Product with sku "%s" already exists.', $query['sku'])

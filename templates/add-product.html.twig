@@ -1,5 +1,14 @@
 {% include "head.html.twig" %}
-
+<script>
+    $(document).ready(function () {
+        $('#product_type').change(function () {
+            let valueSelected = $(this).find("option:selected").val();
+            if (valueSelected !== "") {
+                $("#attributes").load("/add-product-type-fields/" + valueSelected);
+            }
+        });
+    });
+</script>
 <body class="container">
 
 <div class="header row mt-3 border-bottom border-2 p-3 align-middle">
@@ -13,12 +22,12 @@
 </div>
 <div class="container  mt-3 py-5">
     <div class="card ms-0 mt-3 w-50 align-items-start">
-        <form action="/create-product" method="post" id="product_form" class="row ps-3">
+        <form action="/create-product" method="post" id="product_form" class="row ps-3 needs-validation" >
             <div class="col mb-3 p-3">
                 <label for="sku" class="form-label p-1">SKU</label>
                 <input type="text" id="sku" name="sku" class="form-control" required>
                 <div class="invalid-feedback">
-                    Please add SKU.
+                   <span>Please add SKU.</span>
                 </div>
 
                 <label for="name" class="form-label p-1">Name</label>
@@ -34,12 +43,12 @@
                 </div>
             </div>
             <div class="col mb-3 p-3">
-                <label for="productType" class="form-label pb-1">Type: </label>
-                <select name="productType" id="productType" class="form-select" required>
-                    <option value="" selected>Please select product type</option>
-                    {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.name }}</option>
-                    {% endfor %}
+                <label for="product_type">Type: </label>
+                <select name="product_type" id="product_type" required>
+                    <option value="" selected>Please select</option>
+                    <option value="furniture">Furniture</option>
+                    <option value="dvd">DVD</option>
+                    <option value="book">Book</option>
                 </select>
 
                 <div id="attributes" class="container"></div>

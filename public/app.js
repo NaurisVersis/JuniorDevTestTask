@@ -1,5 +1,5 @@
-//delete product
 $(document).ready(function () {
+    //delete product
     $('#mass-delete').click(function () {
         let container = $(".delete-checkbox:checked").parent();
         let ids = container.map(function () {
@@ -18,17 +18,6 @@ $(document).ready(function () {
             error: function (jqXHR) {
             }
         });
-    });
-});
-
-//add product
-$(document).ready(function () {
-    //choose type
-    $('#productType').change(function () {
-        let valueSelected = $(this).find("option:selected").val();
-        if(valueSelected !== "") {
-            $("#attributes").load("/add-product-attributes/" + valueSelected);
-        }
     });
     //validate SKU
     $('#sku').on("blur", function () {
