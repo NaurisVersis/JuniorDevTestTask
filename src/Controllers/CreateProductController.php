@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace JuniorDevTestTask\Controllers;
 
+
 use Doctrine\ORM\EntityManager;
-use JuniorDevTestTask\Entities\{Book, Dvd, Furniture, Product};
+use JuniorDevTestTask\Entities\Product;
 use Laminas\Diactoros\Response\EmptyResponse;
-use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
-use Laminas\Diactoros\Response\TextResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -37,22 +36,15 @@ class CreateProductController
             return new EmptyResponse;
         }
 
-        switch ($body['product_type']) {
-            case 'book':
-                $product = new Book($body['sku'], $body['name'], $body['price']);
-                $product->setWeight(intval($body['weight']));
-                break;
-            case 'dvd':
-                $product = new Dvd($body['sku'], $body['name'], $body['price']);
-                $product->setSize(intval($body['size']));
-                break;
-            case 'furniture':
-                $product = new Furniture($body['sku'], $body['name'], $body['price']);
-                $product->setHeight(intval($body['height']));
-                $product->setLength(intval($body['length']));
-                $product->setWidth(intval($body['width']));
-                break;
-        }
+        $class =  '\JuniorDevTestTask\Entities\\'.ucwords($body['product_type']);
+        $product = new $class($body['sku'], $body['name'], $body['price']);
+        $attributeNames = $product::getAttributeNames();
+        foreach ($attributeNames as $attributeName) {
+
+            $method = 'set' . ucfirst($attributeName);
+
+            $product->$method(intval($body[$attributeName]));
+    }
 
 
         $this->entityManager->persist($product);

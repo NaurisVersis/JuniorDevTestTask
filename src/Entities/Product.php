@@ -18,6 +18,8 @@ abstract class Product
 
     protected string $unit;
 
+    protected static array $attributeNames;
+
     #[ORM\Id]
     #[ORM\Column(type: 'integer')]
     #[ORM\GeneratedValue]
@@ -43,6 +45,8 @@ abstract class Product
     }
 
     abstract public function getAttributes(): array;
+
+    abstract public static function getAttributeNames(): array;
 
     public function getId(): int
     {

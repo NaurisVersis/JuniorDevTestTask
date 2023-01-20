@@ -13,8 +13,17 @@ class Dvd extends Product
 
     protected string $unit = 'MB';
 
+    protected static array $attributeNames = [
+                'Size'
+    ];
+
     #[ORM\Column(type: 'integer')]
     private int $size;
+
+    public static function getAttributeNames(): array
+    {
+        return self::$attributeNames;
+    }
 
     public function setSize(int $size): void
     {

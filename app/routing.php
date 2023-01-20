@@ -13,7 +13,7 @@ use JuniorDevTestTask\Controllers\ValidateSkuController;
  */
 $router->map('GET', '/', ProductsViewController::class);
 $router->map('GET', '/add-product', AddProductFormController::class);
-$router->map('GET', '/add-product-type-fields/{type}', AddProductTypeFieldsController::class);
+$router->map('GET', '/add-product-type/{type}', AddProductTypeFieldsController::class);
 $router->map('POST', '/create-product', CreateProductController::class);
 $router->map('GET', '/validate-product-sku', ValidateSkuController::class);
 $router->map('POST', '/delete-products', DeleteProductsController::class);

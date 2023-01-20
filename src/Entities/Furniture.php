@@ -10,6 +10,11 @@ class Furniture extends Product
 {
     protected string $type = 'Furniture';
 
+    protected static array $attributeNames = [
+        'width', 'height', 'length'
+    ];
+
+
     protected string $unit = 'cm';
 
     #[ORM\Column(type: 'integer')]
@@ -20,6 +25,11 @@ class Furniture extends Product
 
     #[ORM\Column(type: 'integer')]
     private int $length;
+
+    public static function getAttributeNames(): array
+    {
+        return self::$attributeNames;
+    }
 
     public function setWidth(int $width): void
     {
@@ -39,9 +49,7 @@ class Furniture extends Product
     public function getAttributes(): array
     {
         return [
-            'width' => $this->width,
-            'height' => $this->height,
-            'length' => $this->length,
+            'dimensions' => $this->width . 'x' . $this->height . 'x' . $this->length
         ];
     }
 

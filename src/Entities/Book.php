@@ -10,10 +10,20 @@ class Book extends Product
 {
     protected string $type = 'Book';
 
-    protected string $unit = 'kg';
+    protected static array $attributeNames = [
+        'weight'
+    ];
 
     #[ORM\Column(type: 'integer')]
     private int $weight;
+
+
+    public static function getAttributeNames(): array
+    {
+        return self::$attributeNames;
+    }
+
+    protected string $unit = 'kg';
 
     public function setWeight(int $weight): void
     {

@@ -4,7 +4,7 @@
         $('#product_type').change(function () {
             let valueSelected = $(this).find("option:selected").val();
             if (valueSelected !== "") {
-                $("#attributes").load("/add-product-type-fields/" + valueSelected);
+                $("#attributes").load("/add-product-type/" + valueSelected);
             }
         });
     });
@@ -51,7 +51,7 @@
                     <option value="book">Book</option>
                 </select>
 
-                <div id="attributes" class="container"></div>
+                <div id="attributes" class="container p-3"></div>
 
             </div>
         </form>
