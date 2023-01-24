@@ -10,20 +10,16 @@ class Book extends Product
 {
     protected string $type = 'Book';
 
-    protected static array $attributeNames = [
-        'weight'
+    protected static string $unit = 'kg';
+
+    protected static string $description = 'Please, provide size in kg';
+
+    protected static array $attributeRules = [
+        'weight' => 'required|integer'
     ];
 
     #[ORM\Column(type: 'integer')]
     private int $weight;
-
-
-    public static function getAttributeNames(): array
-    {
-        return self::$attributeNames;
-    }
-
-    protected string $unit = 'kg';
 
     public function setWeight(int $weight): void
     {
@@ -36,9 +32,12 @@ class Book extends Product
             'weight' => $this->weight,
         ];
     }
-
-    public function getUnit(): string
+    public static function getUnit(): string
     {
-        return $this->unit;
+        return self::$unit;
+    }
+    public static function getDescription(): string
+    {
+        return self::$description;
     }
 }

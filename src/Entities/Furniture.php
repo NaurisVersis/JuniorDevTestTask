@@ -10,12 +10,15 @@ class Furniture extends Product
 {
     protected string $type = 'Furniture';
 
-    protected static array $attributeNames = [
-        'width', 'height', 'length'
+    protected static string $unit = 'cm';
+
+    protected static string $description = 'Please, provide dimensions in HxWxL format';
+
+    protected static array $attributeRules = [
+        'width' => 'required|integer',
+        'height' => 'required|integer',
+        'length' => 'required|integer',
     ];
-
-
-    protected string $unit = 'cm';
 
     #[ORM\Column(type: 'integer')]
     private int $width;
@@ -25,11 +28,6 @@ class Furniture extends Product
 
     #[ORM\Column(type: 'integer')]
     private int $length;
-
-    public static function getAttributeNames(): array
-    {
-        return self::$attributeNames;
-    }
 
     public function setWidth(int $width): void
     {
@@ -52,10 +50,12 @@ class Furniture extends Product
             'dimensions' => $this->width . 'x' . $this->height . 'x' . $this->length
         ];
     }
-
-    public function getUnit(): string
+    public static function getUnit(): string
     {
-        return $this->unit;
+        return self::$unit;
     }
-
+    public static function getDescription(): string
+    {
+        return self::$description;
+    }
 }

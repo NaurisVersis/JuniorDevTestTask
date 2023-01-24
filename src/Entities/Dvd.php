@@ -11,19 +11,16 @@ class Dvd extends Product
 {
     protected string $type = 'DVD';
 
-    protected string $unit = 'MB';
+    protected static string $unit = 'MB';
 
-    protected static array $attributeNames = [
-                'Size'
+    protected static string $description = 'Please, provide size in MB';
+
+    protected static array $attributeRules = [
+        'size' => 'required|integer'
     ];
 
     #[ORM\Column(type: 'integer')]
-    private int $size;
-
-    public static function getAttributeNames(): array
-    {
-        return self::$attributeNames;
-    }
+    protected int $size;
 
     public function setSize(int $size): void
     {
@@ -37,8 +34,12 @@ class Dvd extends Product
         ];
     }
 
-    public function getUnit(): string
+    public static function getUnit(): string
     {
-        return $this->unit;
+        return self::$unit;
+    }
+    public static function getDescription(): string
+    {
+        return self::$description;
     }
 }

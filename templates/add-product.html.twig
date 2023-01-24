@@ -7,10 +7,43 @@
                 $("#attributes").load("/add-product-type/" + valueSelected);
             }
         });
+
+        $("form").submit(function(e) {
+
+            // Clean errors
+            $(".errors").empty();
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+            let form = $(this);
+            let actionUrl = form.attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                data: form.serialize(), // serializes the form's elements.
+                success: function()
+                {
+                    window.location.href = '/'; // redirect to main page
+                },
+                error: function(data)
+                {
+                    let errors = data.responseJSON;
+
+                    for (const field in errors) {
+                        let fieldErrors = errors[field];
+
+                        for (const errorKey in fieldErrors) {
+                            let errorText = fieldErrors[errorKey];
+
+                            $('#'+field+'-errors').append('<p class="text-danger p-1">' + errorText + '</p>');
+                        }
+                    }
+                }
+            });
+        });
     });
 </script>
 <body class="container">
-
 <div class="header row mt-3 border-bottom border-2 p-3 align-middle">
     <h1 class="col">Add product</h1>
     <div class="col-md-3 text-end">
@@ -25,22 +58,18 @@
         <form action="/create-product" method="post" id="product_form" class="row ps-3 needs-validation" >
             <div class="col mb-3 p-3">
                 <label for="sku" class="form-label p-1">SKU</label>
-                <input type="text" id="sku" name="sku" class="form-control" required>
-                <div class="invalid-feedback">
-                   <span>Please add SKU.</span>
-                </div>
+                <input type="text" id="sku" name="sku" class="form-control" >
+                <div class="errors" id="sku-errors"></div>
+
 
                 <label for="name" class="form-label p-1">Name</label>
-                <input type="text" id="name" name="name" class="form-control" required>
-                <div class="invalid-feedback">
-                    Please add SKU.
-                </div>
+                <input type="text" id="name" name="name" class="form-control"  >
+                <div class="errors" id="name-errors"></div>
 
                 <label for="price" class="form-label p-1">Price ($)</label>
-                <input type="number" min="0" step="0.01" id="price" name="price" class="form-control" required>
-                <div class="invalid-feedback">
-                    Please add SKU.
-                </div>
+                <input type="number" min="0" step="0.01" id="price" name="price" class="form-control" >
+                <div class="errors" id="price-errors"></div>
+
             </div>
             <div class="col mb-3 p-3">
                 <label for="product_type">Type: </label>

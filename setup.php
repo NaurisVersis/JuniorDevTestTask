@@ -1,13 +1,16 @@
 <?php
+
+use JuniorDevTestTask\Entities\Category;
+
 require __DIR__ . '/app/bootstrap.php';
 
 /**
  * @var $entityManager Doctrine\ORM\EntityManager
  */
 
-$dvds = new \JuniorDevTestTask\Entities\Category('DVD');
-$books = new \JuniorDevTestTask\Entities\Category('Book');
-$furniture = new \JuniorDevTestTask\Entities\Category('Furniture');
+$dvds = new Category('DVD');
+$books = new Category('Book');
+$furniture = new Category('Furniture');
 
 $dvds->setHint('size');
 $books->setHint('weight');

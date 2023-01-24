@@ -32,13 +32,27 @@ $container->delegate(
 
 $container->add(Doctrine\ORM\EntityManager::class, $entityManager);
 
-$loader = new Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
-$twig = new Twig\Environment($loader);
+$templateLoader = new Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
+$twig = new Twig\Environment($templateLoader);
 
+$translationsLoader = new Illuminate\Translation\ArrayLoader();
+$translationsLoader->addMessages(
+    'en', // Language, should match with translator locale
+    'validation', // Default group for validation
+    [ // Load messages from array
+        'required' => 'The :attribute field is required.',
+        'integer' => 'The :attribute must be an integer.',
+    ],
+);
+$validatorFactory = new Illuminate\Validation\Factory(
+    new Illuminate\Translation\Translator($translationsLoader, 'en')
+);
 // Adding entity manager to container
 $container->add(Doctrine\ORM\EntityManager::class, $entityManager);
 // Add twig to container
 $container->add(Twig\Environment::class, $twig);
+// Add illuminate validation factory
+$container->add(Illuminate\Contracts\Validation\Factory::class, $validatorFactory);
 
 $strategy = (new League\Route\Strategy\ApplicationStrategy())->setContainer($container);
 $router = (new League\Route\Router())->setStrategy($strategy);

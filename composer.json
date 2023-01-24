@@ -17,6 +17,7 @@
         "doctrine/orm": "^2.13",
         "symfony/cache": "^5.4",
         "vlucas/phpdotenv": "^5.5",
-        "twig/twig": "^3.4"
+        "twig/twig": "^3.4",
+        "illuminate/validation": "^9.48"
     }
 }

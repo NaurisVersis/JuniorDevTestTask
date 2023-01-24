@@ -21,6 +21,8 @@ class AddProductTypeFieldsController
     {
         $classname = '\JuniorDevTestTask\Entities\\'.ucwords($args['type']);
         $attributeNames = $classname::getAttributeNames();
+        $unit = $classname::getUnit();
+        $description = $classname::getDescription();
 
 
 
@@ -28,7 +30,9 @@ class AddProductTypeFieldsController
             $this->twig->render(
                 'add-product-type.html.twig',
                 [
-                    'attributeNames' => $attributeNames
+                    'attributeNames' => $attributeNames,
+                    'unit' => $unit,
+                    'description' => $description
                 ]
             )
         );

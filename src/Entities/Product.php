@@ -4,7 +4,7 @@ namespace JuniorDevTestTask\Entities;
 
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Illuminate\Contracts\Validation\Factory as Validator;
 
 
 #[ORM\Entity]
@@ -16,9 +16,18 @@ abstract class Product
 {
     protected string $type;
 
-    protected string $unit;
+    protected static string $unit;
 
-    protected static array $attributeNames;
+    protected static string $description;
+
+    private array $baseRules = [
+        'sku' => 'required|string',
+        'name' => 'required|string',
+        'price' => 'required|string',
+    ];
+
+    // Should be filled per product
+    protected static array $attributeRules = [];
 
     #[ORM\Id]
     #[ORM\Column(type: 'integer')]
@@ -35,18 +44,22 @@ abstract class Product
     private string $price;
 
     public function __construct(
-        string $sku,
-        string $name,
-        string $price,
+        array $productData,
+        Validator $validator,
     ) {
-        $this->sku = $sku;
-        $this->name = $name;
-        $this->price = $price;
-    }
+        $productFields = $this->baseRules + static::$attributeRules;
 
+        $validator->validate($productData, $productFields);
+        $this->sku = $productData['sku'];
+        $this->name = $productData['name'];
+        $this->price = $productData['price'];
+    }
     abstract public function getAttributes(): array;
 
-    abstract public static function getAttributeNames(): array;
+    public static function getAttributeNames(): array
+    {
+        return array_keys(static::$attributeRules);
+    }
 
     public function getId(): int
     {
@@ -71,5 +84,10 @@ abstract class Product
     public function getType(): string
     {
         return $this->type;
+    }
+
+    public static function getDescription(): string
+    {
+        return self::$description;
     }
 }

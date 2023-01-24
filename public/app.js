@@ -19,20 +19,4 @@ $(document).ready(function () {
             }
         });
     });
-    //validate SKU
-    $('#sku').on("blur", function () {
-        let skuValue = $(this).val();
-
-        $.ajax({
-            url: '/validate-product-sku?sku=' + skuValue,
-            type: 'GET',
-            success: function (data) {
-            },
-            error: function (jqXHR) {
-                if (jqXHR.status === 409) {
-                    alert(jqXHR.responseJSON.error)
-                }
-            }
-        });
-    });
 });
