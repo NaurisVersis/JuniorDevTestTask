@@ -50,10 +50,12 @@ class Furniture extends Product
             'dimensions' => $this->width . 'x' . $this->height . 'x' . $this->length
         ];
     }
+
     public static function getUnit(): string
     {
         return self::$unit;
     }
+
     public static function getDescription(): string
     {
         return self::$description;

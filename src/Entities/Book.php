@@ -32,10 +32,12 @@ class Book extends Product
             'weight' => $this->weight,
         ];
     }
+
     public static function getUnit(): string
     {
         return self::$unit;
     }
+
     public static function getDescription(): string
     {
         return self::$description;

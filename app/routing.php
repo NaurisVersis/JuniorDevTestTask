@@ -6,10 +6,6 @@ use JuniorDevTestTask\Controllers\CreateProductController;
 use JuniorDevTestTask\Controllers\DeleteProductsController;
 use JuniorDevTestTask\Controllers\ProductsViewController;
 
-
-/**
- * @var $router League\Route\Router
- */
 $router->map('GET', '/', ProductsViewController::class);
 $router->map('GET', '/add-product', AddProductFormController::class);
 $router->map('GET', '/add-product-type/{type}', AddProductTypeFieldsController::class);

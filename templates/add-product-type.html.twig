@@ -1,10 +1,10 @@
 {% for attributeName in attributeNames %}
     <div class="container mt-1">
         <label for="{{ attributeName }}" class="form-label">{{ attributeName|capitalize }} in {{ unit }}</label>
-        <input type="number" min="1" id="{{ attributeName}}" name="{{ attributeName }}"
+        <input type="number" min="1" id="{{ attributeName }}" name="{{ attributeName }}"
                class="form-control" required>
 
-        <div class="errors" id="{{ attributeName}}-errors"></div>
+        <div class="errors" id="{{ attributeName }}-errors"></div>
     </div>
 {% endfor %}
 <p class="text-info pt-2">{{ description }}</p>

@@ -38,6 +38,7 @@ class Dvd extends Product
     {
         return self::$unit;
     }
+
     public static function getDescription(): string
     {
         return self::$description;

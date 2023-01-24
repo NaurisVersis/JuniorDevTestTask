@@ -19,7 +19,6 @@ class CreateProductController
     private EntityManager $entityManager;
     private Validator $validator;
 
-
     public function __construct(EntityManager $entityManager, Validator $validator)
     {
         $this->entityManager = $entityManager;
@@ -60,5 +59,4 @@ class CreateProductController
         $this->entityManager->flush();
         return new EmptyResponse(201);
     }
-
 }

@@ -2,7 +2,7 @@
 
 include __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ .'/..');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
 $isDevMode = true;
@@ -39,9 +39,9 @@ $translationsLoader = new Illuminate\Translation\ArrayLoader();
 $translationsLoader->addMessages(
     'en', // Language, should match with translator locale
     'validation', // Default group for validation
-    [ // Load messages from array
+    [
         'required' => 'The :attribute field is required.',
-        'integer' => 'The :attribute must be an integer.',
+        'integer' => 'The :attribute must be an integer.',// Load messages from array
     ],
 );
 $validatorFactory = new Illuminate\Validation\Factory(

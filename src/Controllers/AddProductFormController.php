@@ -18,8 +18,6 @@ class AddProductFormController
 
     public function __invoke(): ResponseInterface
     {
-
-
         return new HtmlResponse(
             $this->twig->render(
                 'add-product.html.twig',

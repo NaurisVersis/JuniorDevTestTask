@@ -23,12 +23,13 @@
                 <div class="container">
                     <h6>Description:</h6>
                     {% for attributeName, attributeValue in product.attributes %}
-                        <p>{{ attributeName|capitalize|e }}: {{ attributeValue|e }} {{ product.unit}}</p>
+                        <p>{{ attributeName|capitalize|e }}: {{ attributeValue|e }} {{ product.unit }}</p>
                     {% endfor %}
                 </div>
             </li>
         {% endfor %}
     </div>
 </ul>
+
 {% include "footer.html.twig" %}
 

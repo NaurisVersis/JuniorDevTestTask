@@ -8,10 +8,8 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Twig\Environment;
 
-
 class ProductsViewController
 {
-
     private EntityManager $entityManager;
     private Environment $twig;
 

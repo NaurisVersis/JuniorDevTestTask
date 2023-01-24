@@ -54,6 +54,7 @@ abstract class Product
         $this->name = $productData['name'];
         $this->price = $productData['price'];
     }
+
     abstract public function getAttributes(): array;
 
     public static function getAttributeNames(): array

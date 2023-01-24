@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace JuniorDevTestTask\Controllers;
@@ -19,12 +20,10 @@ class AddProductTypeFieldsController
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $classname = '\JuniorDevTestTask\Entities\\'.ucwords($args['type']);
+        $classname = '\JuniorDevTestTask\Entities\\' . ucwords($args['type']);
         $attributeNames = $classname::getAttributeNames();
         $unit = $classname::getUnit();
         $description = $classname::getDescription();
-
-
 
         return new HtmlResponse(
             $this->twig->render(

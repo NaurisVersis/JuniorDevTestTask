@@ -31,5 +31,4 @@ class DeleteProductsController
 
         return new EmptyResponse();
     }
-
 }

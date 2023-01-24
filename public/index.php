@@ -1,4 +1,5 @@
 <?php
+
 include __DIR__ . '/../app/bootstrap.php';
 include __DIR__ . '/../app/routing.php';
 
